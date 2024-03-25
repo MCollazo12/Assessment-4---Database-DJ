@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Add a song to {{ playlist.name }}</h1>
+
+<div class="container-sm">
+  <form action="/playlists/{{ playlist.id }}/add-song" method="POST">
+    {{ form.hidden_tag() }}
+    <ol class="list-group">
+      {% for song_id, song_title in form.song.choices %}
+        <li class="list-group-item d-flex salign-items-start">
+          <div class="ms-2 me-auto">
+            <h5 class="fw-bold">{{ song_title }}</h5>
+            <p class="mb-0">{{ song_artists[song_id] }}</p>
+          </div>
+          <div class="form-check align-self-center">
+            <input class="form-check-input me-1" type="checkbox" value="{{ song_id }}" name="song" id="{{ song_id }}">
+          </div>
+        </li>
+      {% endfor %}
+    </ol>
+    <div class="text-center mt-3">
+      <button type="submit" class="btn btn-md btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
